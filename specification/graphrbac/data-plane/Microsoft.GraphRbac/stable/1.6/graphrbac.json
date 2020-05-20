@@ -1435,6 +1435,80 @@
         }
       }
     },
+    "/{tenantID}/servicePrincipals/{objectId}/appRoleAssignments": {
+      "get": {
+        "operationId": "ServicePrincipals_ListAppRoleAssignments",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The object ID of the service principal"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/tenantIDInPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. The operation was successful.",
+            "schema": {
+              "$ref": "#/definitions/AppRoleAssignmentListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/GraphError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "odata.nextLink"
+        }
+      }
+    },
+    "/{tenantID}/servicePrincipals/{objectId}/appRoleAssignedTo": {
+      "get": {
+        "operationId": "ServicePrincipals_ListAppRoleAssignedTo",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The object ID of the service principal"
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/tenantIDInPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. The operation was successful.",
+            "schema": {
+              "$ref": "#/definitions/AppRoleAssignmentListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/GraphError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "odata.nextLink"
+        }
+      }
+    },
     "/{tenantID}/servicePrincipals/{objectId}/owners": {
       "get": {
         "tags": [
@@ -2731,6 +2805,24 @@
       },
       "description": "Represents an Azure Active Directory object."
     },
+    "AppRoleAssignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "principalDisplayName": {"type": "string"},
+        "principalId": {"type": "string"},
+        "principalType": {"type": "string"},
+        "resourceDisplayName": {"type": "string"},
+        "resourceId": {"type": "string"},
+        "appRoleId": {"type": "string"}
+      }
+    },
     "KeyCredential": {
       "type": "object",
       "properties": {
@@ -3305,6 +3397,19 @@
         "type": "object"
       },
       "description": "Request parameters for adding a owner to an application."
+    },
+    "AppRoleAssignmentListResult": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppRoleAssignment"
+          },
+          "description": "A collection of AppRoleAssignments."
+        }
+      },
+      "description": "AppRoleAssignments list operation result."
     },
     "KeyCredentialListResult": {
       "type": "object",
